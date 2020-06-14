@@ -1,0 +1,33 @@
+{
+    "name": "@azleur/scaling-canvas",
+    "version": "0.0.0",
+    "author": "azleur",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Azleur/template.git"
+    },
+    "homepage": "https://github.com/Azleur/template",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "test": "jest",
+        "build": "rm -rf dist && tsc && uglifyjs dist/*.js --compress --output dist/index.js"
+    },
+    "devDependencies": {
+        "@types/jest": "^25.2.3",
+        "canvas": "^2.6.1",
+        "jest": "^26.0.1",
+        "ts-jest": "^26.1.0",
+        "typescript": "^3.9.5",
+        "uglify-js": "^3.9.4"
+    },
+    "dependencies": {
+        "@azleur/rect": "^0.1.1",
+        "@azleur/transform": "^0.2.1",
+        "@azleur/vec2": "^0.1.3"
+    }
+}
