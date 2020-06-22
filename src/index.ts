@@ -1,6 +1,11 @@
 import { Vec2 } from "@azleur/vec2";
 import { Rect, FromCenterRadius, FromCenterSpan } from "@azleur/rect";
-import { AffineTransform, ScaleFit, TransformPoint, InverseTransformPoint, TransformRect, InverseTransformRect } from "@azleur/transform";
+import {
+    AffineTransform, ScaleFit,
+    TransformPoint, InverseTransformPoint,
+    TransformRect, InverseTransformRect,
+    TransformVec, InverseTransformVec,
+} from "@azleur/transform";
 
 export type BrushStyle = string | CanvasGradient | CanvasPattern;
 export type StrokeStyle = { brush: BrushStyle, width: number, };
@@ -108,6 +113,14 @@ export class ScalingCanvas {
         return this.canvasWrapper(transform => InverseTransformRect(canvas, transform));
     }
 
+    WorldToCanvasVec(world: Vec2): Vec2 {
+        return this.canvasWrapper(transform => TransformVec(world, transform));
+    }
+
+    CanvasToWorldVec(canvas: Vec2): Vec2 {
+        return this.canvasWrapper(transform => InverseTransformVec(canvas, transform));
+    }
+
     Clear(): void {
         if (this.canvasRect) {
             const { x, y } = this.canvasRect.min;
@@ -171,9 +184,36 @@ export class ScalingCanvas {
             worldRect = FromCenterSpan(a as Vec2, b as Vec2);
             style = c as FillStyle | undefined;
         }
+        if (style) {
+            this.SetFill(style);
+        }
         const canvasRect = this.WorldToCanvasRect(worldRect);
         const min = canvasRect.min;
         const size = canvasRect.Diagonal();
         this.context.fillRect(min.x, min.y, size.x, size.y);
+    }
+
+    StrokeCircle(center: Vec2, radius: number, style?: StrokeStyle): void {
+        if (style) {
+            this.SetStroke(style);
+        }
+        const c = this.WorldToCanvasPoint(center);
+        const radiusVec = this.WorldToCanvasVec(new Vec2(radius, radius));
+        const r = Math.max(radiusVec.x, radiusVec.y); // Should be equal but can depend on transform.
+        this.context.beginPath();
+        this.context.arc(c.x, c.y, r, 0, 2 * Math.PI);
+        this.context.stroke();
+    }
+
+    FillCircle(center: Vec2, radius: number, style?: FillStyle): void {
+        if (style) {
+            this.SetFill(style);
+        }
+        const c = this.WorldToCanvasPoint(center);
+        const radiusVec = this.WorldToCanvasVec(new Vec2(radius, radius));
+        const r = Math.max(radiusVec.x, radiusVec.y); // Should be equal but can depend on transform.
+        this.context.beginPath();
+        this.context.arc(c.x, c.y, r, 0, 2 * Math.PI);
+        this.context.fill();
     }
 }

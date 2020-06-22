@@ -27,7 +27,7 @@
     },
     "dependencies": {
         "@azleur/rect": "^0.1.1",
-        "@azleur/transform": "^0.2.1",
+        "@azleur/transform": "^0.2.2",
         "@azleur/vec2": "^0.1.3"
     }
 }
