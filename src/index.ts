@@ -21,8 +21,8 @@ export class ScalingCanvas {
     worldToCanvasTransform?: AffineTransform;
 
     constructor(canvas: HTMLCanvasElement);
-    constructor(canvas: HTMLCanvasElement, worldSize: number, worldCenter: Vec2);
-    constructor(canvas: HTMLCanvasElement, worldSize?: number, worldCenter?: Vec2) {
+    constructor(canvas: HTMLCanvasElement, worldRect: Rect);
+    constructor(canvas: HTMLCanvasElement, worldRect?: Rect) {
         this.canvas = canvas;
         this.canvas.onresize = this.ResizeCanvas;
         this.canvas.onload
@@ -37,15 +37,15 @@ export class ScalingCanvas {
         }
         this.context = ctx;
 
-        if (worldSize && worldCenter) {
-            this.AdjustCamera(worldSize, worldCenter); // worldRect initialized here.
+        if (worldRect) {
+            this.AdjustCamera(worldRect); // worldRect initialized here.
         }
         this.ResizeCanvas();
     }
 
     /** Use this to change the camera position and/or size. */
-    AdjustCamera(worldSize: number, worldCenter: Vec2): void {
-        this.worldRect = FromCenterRadius(worldCenter, worldSize / 2);
+    AdjustCamera(worldRect: Rect): void {
+        this.worldRect = worldRect;
         this.Fit();
     }
 
