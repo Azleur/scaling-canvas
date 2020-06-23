@@ -5,16 +5,16 @@
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Azleur/template.git"
+        "url": "https://github.com/Azleur/scaling-canvas"
     },
-    "homepage": "https://github.com/Azleur/template",
+    "homepage": "https://github.com/Azleur/scaling-canvas",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "publishConfig": {
         "access": "public"
     },
     "scripts": {
-        "test": "jest",
+        "test": "echo NO AUTOMATIC TESTS",
         "build": "rm -rf dist && tsc && uglifyjs dist/*.js --compress --output dist/index.js"
     },
     "devDependencies": {
