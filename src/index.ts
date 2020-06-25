@@ -97,30 +97,37 @@ export class ScalingCanvas {
         return this.canvasWrapper(transform => InverseTransformRect(this.canvasRect!, transform));
     }
 
+    /** Map a world point (position in the world) to canvas space (pixel position). */
     WorldToCanvasPoint(world: Vec2): Vec2 {
         return this.canvasWrapper(transform => TransformPoint(world, transform));
     }
 
+    /** Map a canvas point (pixel position in the canvas) to world space. */
     CanvasToWorldPoint(canvas: Vec2): Vec2 {
         return this.canvasWrapper(transform => InverseTransformPoint(canvas, transform));
     }
 
+    /** Map a world rect (area in the world) to canvas space (pixel area). */
     WorldToCanvasRect(world: Rect): Rect {
         return this.canvasWrapper(transform => TransformRect(world, transform));
     }
 
+    /** Map a canvas rect (pixel area in the canvas) to world space. */
     CanvasToWorldRect(canvas: Rect): Rect {
         return this.canvasWrapper(transform => InverseTransformRect(canvas, transform));
     }
 
+    /** Map a world vector (distance without an origin) to canvas space (pixel distance). */
     WorldToCanvasVec(world: Vec2): Vec2 {
         return this.canvasWrapper(transform => TransformVec(world, transform));
     }
 
+    /** Map a canvas vector (pixel distance without an origin) to world space. */
     CanvasToWorldVec(canvas: Vec2): Vec2 {
         return this.canvasWrapper(transform => InverseTransformVec(canvas, transform));
     }
 
+    /** Clear the whole canvas. */
     Clear(): void {
         if (this.canvasRect) {
             const { x, y } = this.canvasRect.min;
@@ -129,15 +136,24 @@ export class ScalingCanvas {
         }
     }
 
+    /** Set the stroke style (brush, width). */
     SetStroke(style: StrokeStyle): void {
         this.context.strokeStyle = style.brush;
         this.context.lineWidth = style.width;
     }
 
+    /** Set the fill style (brush). */
     SetFill(style: FillStyle): void {
         this.context.fillStyle = style.brush;
     }
 
+    /** Set the font style (brush, font). */
+    SetFont(style: FontStyle): void {
+        this.context.fillStyle = style.brush;
+        this.context.font = style.font;
+    }
+
+    /** Draw a line between two world points. */
     StrokeLine(from: Vec2, to: Vec2, style?: StrokeStyle): void {
         if (style) {
             this.SetStroke(style);
@@ -150,6 +166,7 @@ export class ScalingCanvas {
         this.context.stroke();
     }
 
+    /** Draw the contour of a world rect. */
     StrokeRect(rect: Rect, style?: StrokeStyle): void;
     StrokeRect(center: Vec2, size: Vec2, style?: StrokeStyle): void;
     StrokeRect(a: Rect | Vec2, b?: StrokeStyle | Vec2, c?: StrokeStyle): void {
@@ -165,13 +182,13 @@ export class ScalingCanvas {
         if (style) {
             this.SetStroke(style);
         }
-        // const worldRect: Rect = (b === undefined) ? (a as Rect) : FromCenterSpan(a as Vec2, b as Vec2);
         const canvasRect = this.WorldToCanvasRect(worldRect);
         const min = canvasRect.min;
         const size = canvasRect.Diagonal();
         this.context.strokeRect(min.x, min.y, size.x, size.y);
     }
 
+    /** Fill the area of a world rect. */
     FillRect(rect: Rect, style?: FillStyle): void;
     FillRect(center: Vec2, size: Vec2, style?: FillStyle): void;
     FillRect(a: Rect | Vec2, b?: FillStyle | Vec2, c?: FillStyle): void {
@@ -193,6 +210,7 @@ export class ScalingCanvas {
         this.context.fillRect(min.x, min.y, size.x, size.y);
     }
 
+    /** Draw the contour of a circle of the approximate given world size (does not deform into ellipse). */
     StrokeCircle(center: Vec2, radius: number, style?: StrokeStyle): void {
         if (style) {
             this.SetStroke(style);
@@ -205,6 +223,7 @@ export class ScalingCanvas {
         this.context.stroke();
     }
 
+    /** Fill the area of a circle of the approximate given world size (does not deform into ellipse). */
     FillCircle(center: Vec2, radius: number, style?: FillStyle): void {
         if (style) {
             this.SetFill(style);
@@ -215,5 +234,14 @@ export class ScalingCanvas {
         this.context.beginPath();
         this.context.arc(c.x, c.y, r, 0, 2 * Math.PI);
         this.context.fill();
+    }
+
+    /** Write text at the given world position. */
+    Write(position: Vec2, text: string, style?: FontStyle): void {
+        if (style) {
+            this.SetFont(style);
+        }
+        const canvasPos = this.WorldToCanvasPoint(position);
+        this.context.fillText(text, canvasPos.x, canvasPos.y);
     }
 }
