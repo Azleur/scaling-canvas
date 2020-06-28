@@ -1,15 +1,17 @@
 import { Vec2 } from "@azleur/vec2";
-import { Rect, FromCenterRadius, FromCenterSpan } from "@azleur/rect";
+import { Rect, FromCenterSpan } from "@azleur/rect";
 import {
     AffineTransform, ScaleFit,
     TransformPoint, InverseTransformPoint,
     TransformRect, InverseTransformRect,
     TransformVec, InverseTransformVec,
+    TransformArea, InverseTransformArea
 } from "@azleur/transform";
 
 export type BrushStyle = string | CanvasGradient | CanvasPattern;
 export type StrokeStyle = { brush: BrushStyle, width: number, };
 export type FillStyle = { brush: BrushStyle, };
+// TODO: Consider splitting font string into components (size, font family...).
 export type FontStyle = { brush: BrushStyle, font: string };
 
 export class ScalingCanvas {
@@ -125,6 +127,16 @@ export class ScalingCanvas {
     /** Map a canvas vector (pixel distance without an origin) to world space. */
     CanvasToWorldVec(canvas: Vec2): Vec2 {
         return this.canvasWrapper(transform => InverseTransformVec(canvas, transform));
+    }
+
+    /** Map a world area (size rect without an origin) to canvas space (pixel size). */
+    WorldToCanvasArea(world: Rect): Rect {
+        return this.canvasWrapper(transform => TransformArea(world, transform));
+    }
+
+    /** Map a canvas area (pixel rect without an origin) to world space. */
+    CanvasToWorldArea(canvas: Rect): Rect {
+        return this.canvasWrapper(transform => InverseTransformArea(canvas, transform));
     }
 
     /** Clear the whole canvas. */
@@ -243,5 +255,16 @@ export class ScalingCanvas {
         }
         const canvasPos = this.WorldToCanvasPoint(position);
         this.context.fillText(text, canvasPos.x, canvasPos.y);
+    }
+
+    /** Calculate the on-world size of a piece of text. */
+    MeasureText(text: string): Rect {
+        const metrics = this.context.measureText(text);
+        const canvasArea = new Rect(
+            -metrics.actualBoundingBoxLeft , -metrics.actualBoundingBoxAscent,
+            +metrics.actualBoundingBoxRight, +metrics.actualBoundingBoxDescent
+        );
+        const worldArea = this.CanvasToWorldArea(canvasArea);
+        return worldArea;
     }
 }

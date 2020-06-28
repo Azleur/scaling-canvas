@@ -29,8 +29,20 @@ window.onload = () => {
         canvas.FillCircle(ballPos, 0.025, { brush: "blue" });
         canvas.SetStroke({ brush: "blue", width: 2 });
         canvas.StrokeRect(FromCenterRadius(ballPos, ballSize));
-        canvas.SetFont({ brush: "#662", font: "bold 2rem sans-serif" });
-        canvas.Write(One, "Hello, world!");
+        canvas.Write(One, "Hello, world!", { brush: "#662", font: "bold 2rem sans-serif" });
+
+        const text = "Ends at the beginning"
+        const style = { brush: "black", font: "1rem serif" };
+        const padding = new Vec2(0.1, 0.1);
+        canvas.SetFont(style);
+        const textSize = canvas.MeasureText(text);
+        const boxSize = textSize.Grow(padding);
+        const boxRect = boxSize.Translate(boxSize.max.Negate());
+        const textRect = textSize.Translate(boxRect.min.Sub(textSize.min).Add(padding));
+        const textStart = boxRect.min.Add(padding).Sub(textSize.min);
+        canvas.FillRect(boxRect, { brush: "#fcf" });
+        canvas.StrokeRect(textRect, { brush: "red", width: 0.5 });
+        canvas.Write(textStart, text, style);
     };
 
     const tick = (millis: number) => {

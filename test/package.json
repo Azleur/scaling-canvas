@@ -9,7 +9,7 @@
         "build": "webpack"
     },
     "devDependencies": {
-        "@azleur/rect": "^0.1.1",
+        "@azleur/rect": "^0.1.2",
         "@azleur/scaling-canvas": "^0.1.1",
         "@azleur/transform": "^0.1.0",
         "@azleur/vec2": "^0.1.5",
