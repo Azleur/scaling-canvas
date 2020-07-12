@@ -1,14 +1,14 @@
-import { Vec2, Right, Zero, Left, Up, Down, One } from "@azleur/vec2";
+import { Vec2 } from "@azleur/vec2";
 import { FromCenterRadius } from "@azleur/rect";
 import { ScalingCanvas } from "@azleur/scaling-canvas";
 
 window.onload = () => {
     const rawCanvas = document.getElementById("target") as HTMLCanvasElement;
-    const canvas = new ScalingCanvas(rawCanvas, FromCenterRadius(Zero, 2));
+    const canvas = new ScalingCanvas(rawCanvas, FromCenterRadius(Vec2.Zero, 2));
 
     const w = 0.25 * (2 * Math.PI);
     const ballSize = 0.1;
-    let ballPos = Right;
+    let ballPos = Vec2.Right;
 
     const updateBall = (millis: number) => {
         const t = millis / 1000;
@@ -16,20 +16,20 @@ window.onload = () => {
     };
 
     const paintBall = () => {
-        const box = FromCenterRadius(Zero, 1);
+        const box = FromCenterRadius(Vec2.Zero, 1);
         canvas.Clear();
         canvas.SetFill({ brush: "white" });
         canvas.FillRect(canvas.Window());
         canvas.FillRect(box, { brush: "#bfb" });
         canvas.StrokeRect(box, { brush: "green", width: 1 });
-        canvas.StrokeCircle(Zero, 1, { brush: "red", width: 0.75 });
-        canvas.FillCircle(Zero, 0.1, { brush: "red" });
-        canvas.StrokeLine(Left, Right, { brush: "black", width: 0.5 });
-        canvas.StrokeLine(Up, Down, { brush: "black", width: 0.5 });
+        canvas.StrokeCircle(Vec2.Zero, 1, { brush: "red", width: 0.75 });
+        canvas.FillCircle(Vec2.Zero, 0.1, { brush: "red" });
+        canvas.StrokeLine(Vec2.Left, Vec2.Right, { brush: "black", width: 0.5 });
+        canvas.StrokeLine(Vec2.Up, Vec2.Down, { brush: "black", width: 0.5 });
         canvas.FillCircle(ballPos, 0.025, { brush: "blue" });
         canvas.SetStroke({ brush: "blue", width: 2 });
         canvas.StrokeRect(FromCenterRadius(ballPos, ballSize));
-        canvas.Write(One, "Hello, world!", { brush: "#662", font: "bold 2rem sans-serif" });
+        canvas.Write(Vec2.One, "Hello, world!", { brush: "#662", font: "bold 2rem sans-serif" });
 
         const text = "Ends at the beginning"
         const style = { brush: "black", font: "1rem serif" };
@@ -43,6 +43,7 @@ window.onload = () => {
         canvas.FillRect(boxRect, { brush: "#fcf" });
         canvas.StrokeRect(textRect, { brush: "red", width: 0.5 });
         canvas.Write(textStart, text, style);
+        canvas.FillCircle(textStart, 0.025, { brush: "red" });
     };
 
     const tick = (millis: number) => {

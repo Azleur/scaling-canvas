@@ -22,8 +22,6 @@ export class ScalingCanvas {
     canvasRect?: Rect;
     worldToCanvasTransform?: AffineTransform;
 
-    constructor(canvas: HTMLCanvasElement);
-    constructor(canvas: HTMLCanvasElement, worldRect: Rect);
     constructor(canvas: HTMLCanvasElement, worldRect?: Rect) {
         this.canvas = canvas;
         this.canvas.onresize = this.ResizeCanvas;
