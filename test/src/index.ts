@@ -17,9 +17,7 @@ window.onload = () => {
 
     const paintBall = () => {
         const box = FromCenterRadius(Vec2.Zero, 1);
-        canvas.Clear();
-        canvas.SetFill({ brush: "white" });
-        canvas.FillRect(canvas.Window());
+        canvas.Clear("white");
         canvas.FillRect(box, { brush: "#bfb" });
         canvas.StrokeRect(box, { brush: "green", width: 1 });
         canvas.StrokeCircle(Vec2.Zero, 1, { brush: "red", width: 0.75 });

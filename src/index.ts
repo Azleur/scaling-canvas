@@ -138,11 +138,15 @@ export class ScalingCanvas {
     }
 
     /** Clear the whole canvas. */
-    Clear(): void {
+    Clear(fill?: BrushStyle): void {
         if (this.canvasRect) {
             const { x, y } = this.canvasRect.min;
             const { x: w, y: h } = this.canvasRect.Diagonal();
             this.context.clearRect(x, y, w, h);
+            if (fill) {
+                this.context.fillStyle = fill;
+                this.context.fillRect(x, y, w, h);
+            }
         }
     }
 
