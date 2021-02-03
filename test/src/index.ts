@@ -42,6 +42,10 @@ window.onload = () => {
         canvas.StrokeRect(textRect, { brush: "red", width: 0.5 });
         canvas.Write(textStart, text, style);
         canvas.FillCircle(textStart, 0.025, { brush: "red" });
+
+        canvas.StrokePoints([new Vec2(1.5, -1.5), new Vec2(1.7, -1.8), new Vec2(1.8, -1.6)], false, {brush: "#048", width: 1.5});
+        canvas.StrokePoints([new Vec2(1.6, -1), new Vec2(1.75, -0.9), new Vec2(1.9, -1.3)], true, {brush: "#084", width: 2.5});
+        canvas.FillPoints([new Vec2(2, -1), new Vec2(2.15, -0.9), new Vec2(2.3, -1.3)], {brush: "#804"});
     };
 
     const tick = (millis: number) => {

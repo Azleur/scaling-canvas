@@ -250,6 +250,56 @@ export class ScalingCanvas {
         this.context.fill();
     }
 
+    /** Draw a line connecting the given list of points, optionally connecting first and last. */
+    StrokePoints(points: Vec2[], closeShape?: boolean, style?: StrokeStyle): void {
+        if (points.length < 2) {
+            return;
+        }
+
+        if (style) {
+            this.SetStroke(style);
+        }
+
+        this.context.beginPath();
+        const origin = this.WorldToCanvasPoint(points[0]);
+        this.context.moveTo(origin.x, origin.y);
+
+        for (let i = 1; i < points.length; i++) {
+            const point = this.WorldToCanvasPoint(points[i]);
+            this.context.lineTo(point.x, point.y);
+        }
+
+        if (closeShape && points.length > 2) {
+            this.context.lineTo(origin.x, origin.y);
+        }
+
+        this.context.stroke();
+    }
+
+    /** Fill a polygon defined by the given list of points. */
+    FillPoints(points: Vec2[], style?: FillStyle): void {
+        if (points.length < 3) {
+            return;
+        }
+
+        if (style) {
+            this.SetFill(style);
+        }
+
+        this.context.beginPath();
+        const origin = this.WorldToCanvasPoint(points[0]);
+        this.context.moveTo(origin.x, origin.y);
+
+        for (let i = 1; i < points.length; i++) {
+            const point = this.WorldToCanvasPoint(points[i]);
+            this.context.lineTo(point.x, point.y);
+        }
+        
+        this.context.lineTo(origin.x, origin.y);
+
+        this.context.fill();
+    }
+
     /** Write text at the given world position. */
     Write(position: Vec2, text: string, style?: FontStyle): void {
         if (style) {
