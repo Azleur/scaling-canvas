@@ -9,10 +9,10 @@ import {
 } from "@azleur/transform";
 
 export type BrushStyle = string | CanvasGradient | CanvasPattern;
-export type StrokeStyle = { brush: BrushStyle, width: number, };
-export type FillStyle = { brush: BrushStyle, };
+export type StrokeStyle = { brush?: BrushStyle, width?: number, join?: CanvasLineJoin, cap?: CanvasLineCap, };
+export type FillStyle = { brush?: BrushStyle, };
 // TODO: Consider splitting font string into components (size, font family...).
-export type FontStyle = { brush: BrushStyle, font: string };
+export type FontStyle = { brush?: BrushStyle, font?: string };
 
 export class ScalingCanvas {
     canvas: HTMLCanvasElement;
@@ -152,19 +152,21 @@ export class ScalingCanvas {
 
     /** Set the stroke style (brush, width). */
     SetStroke(style: StrokeStyle): void {
-        this.context.strokeStyle = style.brush;
-        this.context.lineWidth = style.width;
+        if (style.brush !== undefined) this.context.strokeStyle = style.brush;
+        if (style.width !== undefined) this.context.lineWidth = style.width;
+        if (style.join !== undefined) this.context.lineJoin = style.join;
+        if (style.cap !== undefined) this.context.lineCap = style.cap;
     }
 
     /** Set the fill style (brush). */
     SetFill(style: FillStyle): void {
-        this.context.fillStyle = style.brush;
+        if (style.brush !== undefined) this.context.fillStyle = style.brush;
     }
 
     /** Set the font style (brush, font). */
     SetFont(style: FontStyle): void {
-        this.context.fillStyle = style.brush;
-        this.context.font = style.font;
+        if (style.brush !== undefined) this.context.fillStyle = style.brush;
+        if (style.font !== undefined) this.context.font = style.font;
     }
 
     /** Draw a line between two world points. */
