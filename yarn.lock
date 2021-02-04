@@ -2,25 +2,25 @@
 # yarn lockfile v1
 
 
-"@azleur/rect@^0.1.3":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@azleur/rect/-/rect-0.1.4.tgz#b5382afac871e1c741957d6cd03b2348ea51efda"
-  integrity sha512-omkVkd2u/kLMZ99wlWeODIDv4LCMFto68MWHlBE+7lELNok+0l1jM3JOFDFtYsPUp8Asum76p2/o4IFEC+zKBw==
+"@azleur/rect@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@azleur/rect/-/rect-0.1.5.tgz#dcd3b19eff97e152c33dd0be2ec39cf2e26d1f09"
+  integrity sha512-zh54RFcmYfS/45W1HH/yVHOxRKREkN4f8rBU4ukaLdVGxgNymcWp9XSPy1zBcEXSN+E3PHbmbIBeHMkSQD0w3g==
   dependencies:
-    "@azleur/vec2" "^0.2.2"
+    "@azleur/vec2" "^0.2.3"
 
-"@azleur/transform@^0.2.3":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@azleur/transform/-/transform-0.2.4.tgz#f6aa61a809660cff23c3ebba941558f6fb982e81"
-  integrity sha512-JkX7Vb0ykrfnxhHH9KfSHJ1hk148WxuhbYQ/MHFMFrg3UbZuLC8LxN7PB9l0IlIvVqmGu54rmAMJ2jFzwqCt/g==
+"@azleur/transform@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@azleur/transform/-/transform-0.2.5.tgz#913c8cefe4f54e12035346c1bcd6264a1291cb48"
+  integrity sha512-Plb0WUVBhl2pxocYvidf9142T/Ko6yo93EUe0SuMjDyuUmzVXPagsi3lm4VIvJITxpjHLzKKBQPNWfmccyVHiA==
   dependencies:
-    "@azleur/rect" "^0.1.3"
-    "@azleur/vec2" "^0.2.1"
+    "@azleur/rect" "^0.1.5"
+    "@azleur/vec2" "^0.2.3"
 
-"@azleur/vec2@^0.2.1", "@azleur/vec2@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@azleur/vec2/-/vec2-0.2.2.tgz#e53834c546cbf844d9d7c9ea9a3a1b838266e577"
-  integrity sha512-XwmNBy2sWc8cNuSwHK8GeyxHM51FlNVVkw9rr+DPi0Exbd+61CZsgx0qeEl2lj0c2RLYfjExwlL3NVBxyWltAA==
+"@azleur/vec2@^0.2.3":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@azleur/vec2/-/vec2-0.2.5.tgz#66a42ba2b312185dd62903cd10971c713880c1fd"
+  integrity sha512-UdBh0VuIWMzCFXR7nIZteQ1xWIHWzPjyYFTUzxOKmopQFMY9kfUpU/gaQ5j9JUYRtSzsp2RAUQ8/yAIcHLjbcA==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13":
   version "7.12.13"
@@ -593,9 +593,9 @@
     pretty-format "^25.2.1"
 
 "@types/node@*":
-  version "14.14.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.22.tgz#0d29f382472c4ccf3bd96ff0ce47daf5b7b84b18"
-  integrity sha512-g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==
+  version "14.14.25"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.25.tgz#15967a7b577ff81383f9b888aa6705d43fbbae93"
+  integrity sha512-EPpXLOVqDvisVxtlbvzfyqSsFeQxltFbluZNRndIb8tr9KiBnYNLzrc1N3pyKUCww2RNrfHDViqDWWE1LCJQtQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
